@@ -31,7 +31,6 @@
             groupBox2 = new GroupBox();
             dateTimePicker1 = new DateTimePicker();
             button2 = new Button();
-            dataGridView1 = new DataGridView();
             button4 = new Button();
             comboBox1 = new ComboBox();
             comboBox2 = new ComboBox();
@@ -39,21 +38,16 @@
             btnR = new Button();
             btnexit = new Button();
             panel2 = new Panel();
-            button7 = new Button();
-            button3 = new Button();
             button1 = new Button();
             label1 = new Label();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
-            textBox1 = new TextBox();
             groupBox4 = new GroupBox();
             button5 = new Button();
-            groupBox5 = new GroupBox();
-            button6 = new Button();
+            dataGridView1 = new DataGridView();
             groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -61,48 +55,39 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             groupBox4.SuspendLayout();
-            groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dateTimePicker1);
-            groupBox2.Location = new Point(360, 394);
+            groupBox2.Location = new Point(626, 447);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(274, 94);
+            groupBox2.Size = new Size(275, 82);
             groupBox2.TabIndex = 18;
             groupBox2.TabStop = false;
             groupBox2.Text = "Date de besoin";
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(18, 46);
+            dateTimePicker1.Location = new Point(19, 42);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(250, 27);
             dateTimePicker1.TabIndex = 4;
             // 
             // button2
             // 
-            button2.Location = new Point(876, 123);
+            button2.Location = new Point(669, 563);
             button2.Name = "button2";
             button2.Size = new Size(151, 39);
             button2.TabIndex = 3;
             button2.Text = "Modifier";
             button2.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(730, 170);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(454, 445);
-            dataGridView1.TabIndex = 16;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            button2.Click += button2_Click;
             // 
             // button4
             // 
-            button4.Location = new Point(719, 123);
+            button4.Location = new Point(483, 565);
             button4.Name = "button4";
             button4.Size = new Size(151, 37);
             button4.TabIndex = 3;
@@ -113,7 +98,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(77, 39);
+            comboBox1.Location = new Point(19, 26);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(151, 28);
             comboBox1.TabIndex = 1;
@@ -121,17 +106,18 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(73, 31);
+            comboBox2.Location = new Point(8, 26);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(151, 28);
             comboBox2.TabIndex = 2;
+            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(comboBox1);
-            groupBox1.Location = new Point(360, 295);
+            groupBox1.Location = new Point(377, 450);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(274, 79);
+            groupBox1.Size = new Size(201, 79);
             groupBox1.TabIndex = 19;
             groupBox1.TabStop = false;
             groupBox1.Text = "Type de matériel ";
@@ -153,6 +139,7 @@
             btnR.TabIndex = 9;
             btnR.Text = "    Retour";
             btnR.UseVisualStyleBackColor = false;
+            btnR.Click += btnR_Click;
             // 
             // btnexit
             // 
@@ -176,8 +163,6 @@
             // panel2
             // 
             panel2.BackColor = SystemColors.ControlLightLight;
-            panel2.Controls.Add(button7);
-            panel2.Controls.Add(button3);
             panel2.Controls.Add(btnR);
             panel2.Controls.Add(btnexit);
             panel2.Controls.Add(button1);
@@ -186,40 +171,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(321, 581);
             panel2.TabIndex = 15;
-            // 
-            // button7
-            // 
-            button7.BackColor = SystemColors.ControlLightLight;
-            button7.Cursor = Cursors.Hand;
-            button7.FlatAppearance.BorderSize = 0;
-            button7.FlatAppearance.MouseOverBackColor = Color.DarkGray;
-            button7.FlatStyle = FlatStyle.Flat;
-            button7.Font = new Font("Century Gothic", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button7.ForeColor = Color.FromArgb(227, 119, 18);
-            button7.Image = Properties.Resources.icons8_home_48;
-            button7.Location = new Point(-224, 130);
-            button7.Name = "button7";
-            button7.Size = new Size(554, 63);
-            button7.TabIndex = 11;
-            button7.Text = "                                                        Consulter mes demandes";
-            button7.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            button3.BackColor = SystemColors.ControlLightLight;
-            button3.Cursor = Cursors.Hand;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.MouseOverBackColor = Color.DarkGray;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Century Gothic", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.ForeColor = Color.FromArgb(227, 119, 18);
-            button3.Image = Properties.Resources.icons8_home_48;
-            button3.Location = new Point(-171, 209);
-            button3.Name = "button3";
-            button3.Size = new Size(501, 63);
-            button3.TabIndex = 10;
-            button3.Text = "                                    Chat";
-            button3.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
@@ -292,59 +243,41 @@
             panel1.Size = new Size(1197, 67);
             panel1.TabIndex = 14;
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(18, 54);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(200, 27);
-            textBox1.TabIndex = 21;
-            textBox1.TextChanged += textBox1_TextChanged;
-            // 
             // groupBox4
             // 
             groupBox4.Controls.Add(comboBox2);
-            groupBox4.Location = new Point(360, 509);
+            groupBox4.Location = new Point(967, 450);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(274, 80);
+            groupBox4.Size = new Size(200, 80);
             groupBox4.TabIndex = 2;
             groupBox4.TabStop = false;
             groupBox4.Text = "Durée d'utilisation";
             // 
             // button5
             // 
-            button5.Location = new Point(1033, 123);
+            button5.Location = new Point(855, 563);
             button5.Name = "button5";
             button5.Size = new Size(151, 38);
             button5.TabIndex = 22;
             button5.Text = "Supprimer";
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
-            // groupBox5
+            // dataGridView1
             // 
-            groupBox5.Controls.Add(button6);
-            groupBox5.Controls.Add(textBox1);
-            groupBox5.Location = new Point(336, 146);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(341, 125);
-            groupBox5.TabIndex = 2;
-            groupBox5.TabStop = false;
-            groupBox5.Text = "Rechercher";
-            // 
-            // button6
-            // 
-            button6.Location = new Point(247, 53);
-            button6.Name = "button6";
-            button6.Size = new Size(94, 29);
-            button6.TabIndex = 23;
-            button6.Text = "Recherche";
-            button6.UseVisualStyleBackColor = true;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(327, 170);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(857, 260);
+            dataGridView1.TabIndex = 16;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // ensdemande
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1197, 648);
-            Controls.Add(groupBox5);
             Controls.Add(button5);
             Controls.Add(button2);
             Controls.Add(groupBox4);
@@ -359,7 +292,6 @@
             Text = "ensdemande";
             Load += ensdemande_Load;
             groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             groupBox1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -368,15 +300,13 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             groupBox4.ResumeLayout(false);
-            groupBox5.ResumeLayout(false);
-            groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private GroupBox groupBox2;
         private Button button2;
-        private DataGridView dataGridView1;
         private Button button4;
         private ComboBox comboBox1;
         private ComboBox comboBox2;
@@ -390,13 +320,9 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
         private Panel panel1;
-        private Button button3;
-        private TextBox textBox1;
         private DateTimePicker dateTimePicker1;
         private GroupBox groupBox4;
         private Button button5;
-        private GroupBox groupBox5;
-        private Button button6;
-        private Button button7;
+        private DataGridView dataGridView1;
     }
 }

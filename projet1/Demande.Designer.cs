@@ -43,7 +43,6 @@
             dgvDemandes = new DataGridView();
             btnAccepter = new Button();
             btnRefuser = new Button();
-            txtCommentaire = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -62,7 +61,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1197, 67);
+            panel1.Size = new Size(1300, 67);
             panel1.TabIndex = 4;
             // 
             // label1
@@ -232,10 +231,10 @@
             // dgvDemandes
             // 
             dgvDemandes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDemandes.Location = new Point(400, 175);
+            dgvDemandes.Location = new Point(327, 128);
             dgvDemandes.Name = "dgvDemandes";
             dgvDemandes.RowHeadersWidth = 51;
-            dgvDemandes.Size = new Size(762, 393);
+            dgvDemandes.Size = new Size(961, 458);
             dgvDemandes.TabIndex = 6;
             dgvDemandes.CellContentClick += dgvDemandes_CellContentClick;
             // 
@@ -245,7 +244,7 @@
             btnAccepter.Name = "btnAccepter";
             btnAccepter.Size = new Size(94, 29);
             btnAccepter.TabIndex = 7;
-            btnAccepter.Text = "button2";
+            btnAccepter.Text = "Accepter";
             btnAccepter.UseVisualStyleBackColor = true;
             btnAccepter.Click += btnAccepter_Click;
             // 
@@ -255,23 +254,15 @@
             btnRefuser.Name = "btnRefuser";
             btnRefuser.Size = new Size(94, 29);
             btnRefuser.TabIndex = 8;
-            btnRefuser.Text = "button3";
+            btnRefuser.Text = "Refuser";
             btnRefuser.UseVisualStyleBackColor = true;
             btnRefuser.Click += btnRefuser_Click;
-            // 
-            // txtCommentaire
-            // 
-            txtCommentaire.Location = new Point(1028, 594);
-            txtCommentaire.Name = "txtCommentaire";
-            txtCommentaire.Size = new Size(125, 27);
-            txtCommentaire.TabIndex = 9;
             // 
             // Demande
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1197, 648);
-            Controls.Add(txtCommentaire);
+            ClientSize = new Size(1300, 700);
             Controls.Add(btnRefuser);
             Controls.Add(btnAccepter);
             Controls.Add(dgvDemandes);
@@ -289,7 +280,6 @@
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvDemandes).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -309,6 +299,5 @@
         private DataGridView dgvDemandes;
         private Button btnAccepter;
         private Button btnRefuser;
-        private TextBox txtCommentaire;
     }
 }

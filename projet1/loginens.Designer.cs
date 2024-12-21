@@ -105,9 +105,9 @@
             label1.Font = new Font("Century Schoolbook", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(28, 27);
             label1.Name = "label1";
-            label1.Size = new Size(309, 34);
+            label1.Size = new Size(301, 34);
             label1.TabIndex = 0;
-            label1.Text = "welcome enseignant";
+            label1.Text = "Bonjour enseignant";
             // 
             // panel4
             // 
@@ -142,6 +142,7 @@
             btnRe.TabIndex = 11;
             btnRe.Text = "    Retour";
             btnRe.UseVisualStyleBackColor = false;
+            btnRe.Click += btnRe_Click;
             // 
             // btnexit
             // 
@@ -160,6 +161,7 @@
             btnexit.TabIndex = 10;
             btnexit.Text = "    Exit";
             btnexit.UseVisualStyleBackColor = false;
+            btnexit.Click += btnexit_Click;
             // 
             // button1
             // 
@@ -197,9 +199,9 @@
             label2.Font = new Font("Century Schoolbook", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(44, 118);
             label2.Name = "label2";
-            label2.Size = new Size(72, 25);
+            label2.Size = new Size(60, 25);
             label2.TabIndex = 4;
-            label2.Text = "Email";
+            label2.Text = "Nom";
             // 
             // textBox2
             // 

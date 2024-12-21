@@ -22,5 +22,16 @@ namespace projet1
             ensdemande cl = new ensdemande(); cl.Show();
             this.Hide();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Chat cl = new Chat(); cl.Show();
+            this.Hide();
+        }
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

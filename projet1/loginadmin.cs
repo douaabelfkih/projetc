@@ -68,12 +68,23 @@ namespace projet1
             {
                 MessageBox.Show("Erreur lors de la connexion à la base de données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        
+
         }
 
         private void loginadmin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnRe_Click(object sender, EventArgs e)
+        {
+            welcome cl = new welcome(); cl.Show();
+            this.Hide();
         }
     }
 }

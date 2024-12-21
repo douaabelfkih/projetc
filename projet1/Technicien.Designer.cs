@@ -38,7 +38,6 @@
             panel2 = new Panel();
             btnR = new Button();
             btnexit = new Button();
-            btnDEm = new Button();
             delete = new Button();
             Edit = new Button();
             Add = new Button();
@@ -151,7 +150,6 @@
             panel2.BackColor = SystemColors.ControlLightLight;
             panel2.Controls.Add(btnR);
             panel2.Controls.Add(btnexit);
-            panel2.Controls.Add(btnDEm);
             panel2.Controls.Add(button4);
             panel2.Controls.Add(btnEns);
             panel2.Location = new Point(0, 67);
@@ -196,24 +194,6 @@
             btnexit.Text = "      Exit";
             btnexit.UseVisualStyleBackColor = false;
             btnexit.Click += btnexit_Click;
-            // 
-            // btnDEm
-            // 
-            btnDEm.BackColor = SystemColors.ControlLightLight;
-            btnDEm.Cursor = Cursors.Hand;
-            btnDEm.FlatAppearance.BorderSize = 0;
-            btnDEm.FlatAppearance.MouseOverBackColor = Color.DarkGray;
-            btnDEm.FlatStyle = FlatStyle.Flat;
-            btnDEm.Font = new Font("Century Gothic", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDEm.ForeColor = SystemColors.GrayText;
-            btnDEm.Image = Properties.Resources.icons8_home_48;
-            btnDEm.Location = new Point(-126, 233);
-            btnDEm.Name = "btnDEm";
-            btnDEm.Size = new Size(457, 63);
-            btnDEm.TabIndex = 6;
-            btnDEm.Text = "                                     Departement";
-            btnDEm.UseVisualStyleBackColor = false;
-            btnDEm.Click += btnDEm_Click;
             // 
             // delete
             // 
@@ -333,7 +313,6 @@
         private Button button4;
         private Button btnEns;
         private Panel panel2;
-        private Button btnDEm;
         private Button btnexit;
         private Button btnR;
         private Button delete;

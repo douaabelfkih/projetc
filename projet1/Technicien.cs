@@ -170,7 +170,7 @@ namespace projet1
 
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                // Définir les colonnes du DataGridView (si ce n'est pas déjà fait)
+                // Vérifier si les colonnes existent déjà
                 if (dataGridView1.Columns.Count == 0)
                 {
                     dataGridView1.Columns.Add("Id", "Id");
@@ -193,7 +193,7 @@ namespace projet1
 
         private void Technicien_Load(object sender, EventArgs e)
         {
-
+            LoadUsers();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

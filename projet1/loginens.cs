@@ -60,7 +60,8 @@ namespace projet1
                         int idEnseignant = Convert.ToInt32(result);
 
                         // Stocker l'id dans une variable ou une classe globale
-                        SessionManager.SetCurrentEnseignantId(idEnseignant);
+                        SessionManager.SetCurrentUser((int)result, "Enseignant");
+
 
                         // Afficher un message de succès
                         MessageBox.Show("Connexion réussie !");
@@ -80,7 +81,15 @@ namespace projet1
                 MessageBox.Show("Erreur lors de la connexion à la base de données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
 
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnRe_Click(object sender, EventArgs e)
+        {
+            welcome cl = new welcome(); cl.Show();
+        }
     }
 }

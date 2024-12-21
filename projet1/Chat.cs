@@ -30,6 +30,25 @@ namespace projet1
             InitializeComponent();
         }
 
+        private void ChargerUtilisateurs()
+        {
+            string query = "SELECT id, nom FROM Technicien UNION SELECT id, nom FROM Enseignant WHERE id != @idActuel";
+
+            using (SqlConnection conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True"))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idActuel", SessionManager.GetCurrentUserId());
+
+                conn.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                comboBox1.DataSource = dt;
+                comboBox1.DisplayMember = "nom";
+                comboBox1.ValueMember = "id";
+            }
+        }
 
         // Envoyer un message
         public static void EnvoyerMessage(string texte, int destinataireId)
@@ -37,20 +56,18 @@ namespace projet1
             string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True";
 
             using (SqlConnection cnx = new SqlConnection(connectionString))
-
             {
                 cnx.Open();
                 string query = @"
-                INSERT INTO Messages (Texte, ExpediteurId, TypeExpediteur, DestinataireId, DateEnvoi)
-                VALUES (@Texte, @ExpediteurId, @TypeExpediteur, @DestinataireId, @DateEnvoi)";
+                 INSERT INTO Message (id_sender, id_receiver, message_content, timestamp)
+                 VALUES (@idSender, @idReceiver, @messageContent, @timestamp)";
 
                 using (SqlCommand command = new SqlCommand(query, cnx))
                 {
-                    command.Parameters.AddWithValue("@Texte", texte);
-                    command.Parameters.AddWithValue("@ExpediteurId", SessionManager.GetCurrentUserId());
-                    command.Parameters.AddWithValue("@TypeExpediteur", SessionManager.GetCurrentUserType());
-                    command.Parameters.AddWithValue("@DestinataireId", destinataireId);
-                    command.Parameters.AddWithValue("@DateEnvoi", DateTime.Now);
+                    command.Parameters.AddWithValue("@idSender", SessionManager.GetCurrentUserId());
+                    command.Parameters.AddWithValue("@idReceiver", destinataireId);
+                    command.Parameters.AddWithValue("@messageContent", texte);
+                    command.Parameters.AddWithValue("@timestamp", DateTime.Now);
 
                     command.ExecuteNonQuery();
                 }
@@ -89,138 +106,113 @@ namespace projet1
 
         private void Chat_Load(object sender, EventArgs e)
         {
-            try
+            ChargerUtilisateurs();
+            ChargerMessages();
+        }
+        private void ChargerMessages()
+        {
+            string query = @"SELECT 
+                     m.message_content AS Message,
+                     u1.nom AS Expediteur,
+                     u2.nom AS Destinataire,
+                     m.timestamp AS Date
+                  FROM Message m
+                  JOIN (
+                      SELECT id, nom FROM Technicien UNION SELECT id, nom FROM Enseignant
+                  ) u1 ON m.id_sender = u1.id
+                  JOIN (
+                      SELECT id, nom FROM Technicien UNION SELECT id, nom FROM Enseignant
+                  ) u2 ON m.id_receiver = u2.id
+                  WHERE m.id_sender = @idActuel OR m.id_receiver = @idActuel
+                  ORDER BY m.timestamp";
+
+            using (SqlConnection conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True"))
             {
-                // Charger les destinataires dans la ComboBox
-                var destinataires = Chat.RecupererDestinataires();
-                comboBox1.DataSource = destinataires;
-                comboBox1.DisplayMember = "Nom";
-                comboBox1.ValueMember = "Id";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors du chargement des destinataires : {ex.Message}");
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idActuel", SessionManager.GetCurrentUserId());
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // Créer une nouvelle colonne "MessageWithSender" pour concaténer les noms et le message
+                DataColumn messageWithSenderColumn = new DataColumn("MessageWithSender", typeof(string));
+                dt.Columns.Add(messageWithSenderColumn);
+
+                // Remplir la nouvelle colonne avec l'expéditeur, le destinataire et le message
+                foreach (DataRow row in dt.Rows)
+                {
+                    string senderName = row["Expediteur"].ToString();
+                    string receiverName = row["Destinataire"].ToString();
+                    string messageContent = row["Message"].ToString();
+
+                    // Concaténer l'expéditeur, le destinataire et le message
+                    row["MessageWithSender"] = $"{senderName} à {receiverName} : {messageContent}";
+                }
+
+                // Afficher la nouvelle colonne dans lstMessages
+                lstMessages.DataSource = dt;
+                lstMessages.DisplayMember = "MessageWithSender"; // Utiliser "MessageWithSender" pour afficher le nom + message
             }
         }
 
-        private async void btnSend_Click(object sender, EventArgs e)
+        private void EnvoyerMessage()
+        {
+            int idDestinataire = (int)comboBox1.SelectedValue;
+            string message = txtMessage.Text;
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                string query = "INSERT INTO Message (id_sender, id_receiver, message_content, timestamp) " +
+                               "VALUES (@idSender, @idReceiver, @content, @timestamp)";
+
+                using (SqlConnection conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True"))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@idSender", SessionManager.GetCurrentUserId());
+                    cmd.Parameters.AddWithValue("@idReceiver", idDestinataire);
+                    cmd.Parameters.AddWithValue("@content", message);
+                    cmd.Parameters.AddWithValue("@timestamp", DateTime.Now);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    txtMessage.Clear();
+                    ChargerMessages();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Veuillez écrire un message avant d'envoyer.");
+            }
+        }
+
+        private void buttonEnvoyer_Click(object sender, EventArgs e)
+        {
+            EnvoyerMessage();
+        }
+
+
+
+        private  void btnSend_Click(object sender, EventArgs e)
         {
             try
             {
-                // Récupérer le texte du message
-                string message = txtMessage.Text;
-
-                if (string.IsNullOrEmpty(message))
-                {
-                    MessageBox.Show("Veuillez écrire un message avant d'envoyer.");
-                    return;
-                }
-
-                // ID du destinataire (à remplacer par un champ ou une sélection réelle)
-                int destinataireId = 2; // Exemple : ID de l'autre utilisateur
-
-                // Envoyer le message
-                Chat.EnvoyerMessage(message, destinataireId);
-
-                // Mettre à jour la liste des messages
-                AfficherMessages(destinataireId);
-
-                // Vider la boîte de texte
-                txtMessage.Clear();
+                EnvoyerMessage();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erreur lors de l'envoi du message : {ex.Message}");
             }
         }
-        private void AfficherMessages(int destinataireId)
-        {
-            try
-            {
-                // Récupérer les messages
-                var messages = Chat.RecupererMessages(destinataireId);
+        
 
-                // Afficher les messages dans la liste
-                lstMessages.Items.Clear();
-                foreach (var message in messages)
-                {
-                    lstMessages.Items.Add(message);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors du chargement des messages : {ex.Message}");
-            }
-        }
-        public class Destinataire
-        {
-            public int Id { get; set; }
-            public string Nom { get; set; }
-        }
+        
 
-        public static List<string> RecupererMessages(int destinataireId)
-        {
-            var messages = new List<string>();
-            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True";
+        
+        
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                string query = @"
-            SELECT Texte, TypeExpediteur, DateEnvoi
-            FROM Messages
-            WHERE (ExpediteurId = @UserId AND DestinataireId = @DestinataireId)
-               OR (ExpediteurId = @DestinataireId AND DestinataireId = @UserId)
-            ORDER BY DateEnvoi ASC";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserId", SessionManager.GetCurrentUserId());
-                    command.Parameters.AddWithValue("@DestinataireId", destinataireId);
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string texte = reader["Texte"].ToString();
-                            string expediteur = reader["TypeExpediteur"].ToString();
-                            string dateEnvoi = Convert.ToDateTime(reader["DateEnvoi"]).ToString("g");
-
-                            messages.Add($"{expediteur} ({dateEnvoi}): {texte}");
-                        }
-                    }
-                }
-            }
-
-            return messages;
-        }
-        public static List<(int Id, string Nom)> RecupererDestinataires()
-        {
-            var destinataires = new List<(int, string)>();
-            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string query = SessionManager.GetCurrentUserType() == "Enseignant" ?
-                    "SELECT id, nom FROM Technicien" :
-                    "SELECT id, nom FROM Enseignant";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int id = reader.GetInt32(0);
-                        string nom = reader.GetString(1);
-                        destinataires.Add((id, nom));
-                    }
-                }
-            }
-
-            return destinataires;
-        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

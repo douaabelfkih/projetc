@@ -35,7 +35,6 @@
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
             btnexit = new Button();
-            button5 = new Button();
             btndem = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -102,7 +101,6 @@
             // 
             panel2.BackColor = SystemColors.ControlLightLight;
             panel2.Controls.Add(btnexit);
-            panel2.Controls.Add(button5);
             panel2.Controls.Add(btndem);
             panel2.Location = new Point(188, 103);
             panel2.Name = "panel2";
@@ -126,24 +124,7 @@
             btnexit.TabIndex = 8;
             btnexit.Text = "    Exit";
             btnexit.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            button5.BackColor = SystemColors.ButtonFace;
-            button5.Cursor = Cursors.Hand;
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatAppearance.MouseOverBackColor = Color.DarkGray;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Century Gothic", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button5.ForeColor = SystemColors.GrayText;
-            button5.Image = Properties.Resources.icons8_chat_50;
-            button5.ImageAlign = ContentAlignment.MiddleLeft;
-            button5.Location = new Point(216, 270);
-            button5.Name = "button5";
-            button5.Size = new Size(316, 63);
-            button5.TabIndex = 3;
-            button5.Text = "Chat";
-            button5.UseVisualStyleBackColor = false;
+            btnexit.Click += btnexit_Click;
             // 
             // btndem
             // 
@@ -156,7 +137,7 @@
             btndem.ForeColor = SystemColors.GrayText;
             btndem.Image = Properties.Resources.icons8_demand_50;
             btndem.ImageAlign = ContentAlignment.MiddleLeft;
-            btndem.Location = new Point(216, 162);
+            btndem.Location = new Point(206, 200);
             btndem.Name = "btndem";
             btndem.Size = new Size(316, 63);
             btndem.TabIndex = 4;
@@ -192,7 +173,6 @@
         private PictureBox pictureBox1;
         private Panel panel2;
         private Button btnexit;
-        private Button button5;
         private Button btndem;
     }
 }

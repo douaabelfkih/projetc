@@ -37,5 +37,10 @@ namespace projet1
             loginTech.Show();
             this.Hide();
         }
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

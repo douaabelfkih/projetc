@@ -35,7 +35,6 @@
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
             btnexit = new Button();
-            btndem = new Button();
             btnMateriel = new Button();
             btnEns = new Button();
             panel1.SuspendLayout();
@@ -54,9 +53,8 @@
             panel1.Controls.Add(pictureBox1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1063, 50);
+            panel1.Size = new Size(1215, 67);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -64,19 +62,18 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(929, 15);
+            label1.Location = new Point(1062, 20);
             label1.Name = "label1";
-            label1.Size = new Size(53, 19);
+            label1.Size = new Size(63, 21);
             label1.TabIndex = 3;
             label1.Text = "Admin";
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.icons8_user_48;
-            pictureBox3.Location = new Point(867, 2);
-            pictureBox3.Margin = new Padding(3, 2, 3, 2);
+            pictureBox3.Location = new Point(991, 3);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(57, 44);
+            pictureBox3.Size = new Size(65, 59);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 2;
             pictureBox3.TabStop = false;
@@ -84,10 +81,9 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.icons8_grid_40;
-            pictureBox2.Location = new Point(1004, 2);
-            pictureBox2.Margin = new Padding(3, 2, 3, 2);
+            pictureBox2.Location = new Point(1147, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(49, 46);
+            pictureBox2.Size = new Size(56, 61);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
@@ -95,10 +91,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.téléchargement__1_;
-            pictureBox1.Location = new Point(3, 2);
-            pictureBox1.Margin = new Padding(3, 2, 3, 2);
+            pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(111, 46);
+            pictureBox1.Size = new Size(127, 61);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -107,13 +102,11 @@
             // 
             panel2.BackColor = SystemColors.ControlLightLight;
             panel2.Controls.Add(btnexit);
-            panel2.Controls.Add(btndem);
             panel2.Controls.Add(btnMateriel);
             panel2.Controls.Add(btnEns);
-            panel2.Location = new Point(176, 62);
-            panel2.Margin = new Padding(3, 2, 3, 2);
+            panel2.Location = new Point(201, 83);
             panel2.Name = "panel2";
-            panel2.Size = new Size(628, 411);
+            panel2.Size = new Size(718, 548);
             panel2.TabIndex = 1;
             // 
             // btnexit
@@ -127,34 +120,13 @@
             btnexit.ForeColor = SystemColors.GrayText;
             btnexit.Image = Properties.Resources.icons8_exit_48;
             btnexit.ImageAlign = ContentAlignment.MiddleLeft;
-            btnexit.Location = new Point(270, 353);
-            btnexit.Margin = new Padding(3, 2, 3, 2);
+            btnexit.Location = new Point(309, 471);
             btnexit.Name = "btnexit";
-            btnexit.Size = new Size(95, 31);
+            btnexit.Size = new Size(109, 41);
             btnexit.TabIndex = 8;
             btnexit.Text = "      Exit";
             btnexit.UseVisualStyleBackColor = false;
             btnexit.Click += btnexit_Click;
-            // 
-            // btndem
-            // 
-            btndem.BackColor = SystemColors.ButtonFace;
-            btndem.Cursor = Cursors.Hand;
-            btndem.FlatAppearance.BorderSize = 0;
-            btndem.FlatAppearance.MouseOverBackColor = Color.DarkGray;
-            btndem.FlatStyle = FlatStyle.Flat;
-            btndem.Font = new Font("Century Gothic", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btndem.ForeColor = SystemColors.GrayText;
-            btndem.Image = Properties.Resources.icons8_demand_50;
-            btndem.ImageAlign = ContentAlignment.MiddleLeft;
-            btndem.Location = new Point(188, 240);
-            btndem.Margin = new Padding(3, 2, 3, 2);
-            btndem.Name = "btndem";
-            btndem.Size = new Size(276, 47);
-            btndem.TabIndex = 4;
-            btndem.Text = "Département";
-            btndem.UseVisualStyleBackColor = false;
-            btndem.Click += btndem_Click;
             // 
             // btnMateriel
             // 
@@ -167,10 +139,9 @@
             btnMateriel.ForeColor = SystemColors.GrayText;
             btnMateriel.Image = Properties.Resources.icons8_servers_group_50;
             btnMateriel.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMateriel.Location = new Point(188, 105);
-            btnMateriel.Margin = new Padding(3, 2, 3, 2);
+            btnMateriel.Location = new Point(215, 140);
             btnMateriel.Name = "btnMateriel";
-            btnMateriel.Size = new Size(276, 47);
+            btnMateriel.Size = new Size(315, 63);
             btnMateriel.TabIndex = 5;
             btnMateriel.Text = "Technicien";
             btnMateriel.UseVisualStyleBackColor = false;
@@ -187,24 +158,22 @@
             btnEns.ForeColor = SystemColors.GrayText;
             btnEns.Image = Properties.Resources.icons8_teacher_64;
             btnEns.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEns.Location = new Point(188, 172);
-            btnEns.Margin = new Padding(3, 2, 3, 2);
+            btnEns.Location = new Point(215, 229);
             btnEns.Name = "btnEns";
-            btnEns.Size = new Size(279, 47);
+            btnEns.Size = new Size(319, 63);
             btnEns.TabIndex = 3;
             btnEns.Text = "Materiel";
             btnEns.UseVisualStyleBackColor = false;
             btnEns.Click += btnEns_Click;
             // 
-            // Form1
+            // adminform
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1063, 521);
+            ClientSize = new Size(1215, 695);
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "adminform";
             Text = "adminform";
             panel1.ResumeLayout(false);
@@ -224,7 +193,6 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
         private Label label1;
-        private Button btndem;
         private Button btnMateriel;
         private Button btnEns;
         private Button btnexit;

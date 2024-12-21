@@ -9,67 +9,91 @@ namespace projet1
 {
     internal class SessionManager
     {
-        SqlConnection cnx;
-        SqlCommand cmd;
-        SqlDataAdapter adap;
-        SqlCommandBuilder cb;
-        DataSet dset;
         private static int currentUserId;
         private static string currentUserType;
 
-        public static void SetCurrentUser(int id)
-        {
-            currentUserId = id;
-            currentUserType = GetUserTypeFromDatabase(id); // Récupère le type de l'utilisateur
-        }
-
-        public static int GetCurrentUserId() => currentUserId;
-
-        public static string GetCurrentUserType() => currentUserType;
-
-        private static string GetUserTypeFromDatabase(int userId)
+        public static void Login(string username, string password)
         {
             string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                // Vérifie d'abord dans la table Enseignant
-                string queryEnseignant = "SELECT COUNT(*) FROM Enseignant WHERE id = @UserId";
-                using (SqlCommand command = new SqlCommand(queryEnseignant, connection))
-                {
-                    command.Parameters.AddWithValue("@UserId", userId);
-
-                    int count = (int)command.ExecuteScalar();
-                    if (count > 0)
-                    {
-                        return "Enseignant";
-                    }
-                }
-
-                // Vérifie ensuite dans la table Technicien
-                string queryTechnicien = "SELECT COUNT(*) FROM Technicien WHERE id = @UserId";
+                // Vérifier l'utilisateur dans la table Technicien
+                string queryTechnicien = "SELECT Id FROM technicien WHERE Nom = @Username AND Password = @Password";
                 using (SqlCommand command = new SqlCommand(queryTechnicien, connection))
                 {
-                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Password", password);
 
-                    int count = (int)command.ExecuteScalar();
-                    if (count > 0)
+                    object result = command.ExecuteScalar();
+                    if (result != null)
                     {
-                        return "Technicien";
+                        SetCurrentUser((int)result, "technicien");
+                        return;
                     }
                 }
+
+                // Vérifier l'utilisateur dans la table Enseignant
+                string queryEnseignant = "SELECT Id FROM Enseignant WHERE Nom = @Username AND Password = @Password";
+                using (SqlCommand command = new SqlCommand(queryEnseignant, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Password", password);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        SetCurrentUser((int)result, "Enseignant");
+                        return;
+                    }
+                }
+
+                throw new Exception("Nom d'utilisateur ou mot de passe incorrect.");
             }
-
-            throw new Exception("Utilisateur introuvable dans les deux tables !");
         }
-        public static void SetCurrentEnseignantId(int id)
+
+        public static void SetCurrentUser(int id, string userType)
         {
-            // Si nécessaire, tu peux aussi vérifier que l'utilisateur est un enseignant ici
             currentUserId = id;
-            currentUserType = "Enseignant";
+            currentUserType = userType;
         }
 
+        public static int GetCurrentUserId()
+        {
+            if (currentUserId == 0)
+            {
+                throw new Exception("Aucun utilisateur connecté.");
+            }
+            return currentUserId;
+        }
+
+        public static string GetCurrentUserType()
+        {
+            if (string.IsNullOrEmpty(currentUserType))
+            {
+                throw new Exception("Aucun utilisateur connecté.");
+            }
+            return currentUserType;
+        }
+
+        public static bool ValidateUserId(int Id)
+        {
+            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Vérifier dans les deux tables (Technicien et Enseignant)
+                string query = "SELECT COUNT(*) FROM technicien WHERE Id = @Id UNION ALL SELECT COUNT(*) FROM Enseignant WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", Id);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
         public static int GetCurrentEnseignantId()
         {
             if (currentUserType == "Enseignant")

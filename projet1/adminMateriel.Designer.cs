@@ -35,7 +35,6 @@
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
-            btndem = new Button();
             btnmat = new Button();
             button2 = new Button();
             panel2 = new Panel();
@@ -124,24 +123,6 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // btndem
-            // 
-            btndem.BackColor = SystemColors.ControlLightLight;
-            btndem.Cursor = Cursors.Hand;
-            btndem.FlatAppearance.BorderSize = 0;
-            btndem.FlatAppearance.MouseOverBackColor = Color.DarkGray;
-            btndem.FlatStyle = FlatStyle.Flat;
-            btndem.Font = new Font("Century Gothic", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btndem.ForeColor = SystemColors.GrayText;
-            btndem.Image = Properties.Resources.icons8_home_48;
-            btndem.Location = new Point(-126, 233);
-            btndem.Name = "btndem";
-            btndem.Size = new Size(457, 63);
-            btndem.TabIndex = 6;
-            btndem.Text = "                                      Département";
-            btndem.UseVisualStyleBackColor = false;
-            btndem.Click += btndem_Click;
-            // 
             // btnmat
             // 
             btnmat.BackColor = SystemColors.ControlLightLight;
@@ -183,7 +164,6 @@
             panel2.BackColor = SystemColors.ControlLightLight;
             panel2.Controls.Add(btnRe);
             panel2.Controls.Add(btnexit);
-            panel2.Controls.Add(btndem);
             panel2.Controls.Add(btnmat);
             panel2.Controls.Add(button2);
             panel2.Location = new Point(0, 43);
@@ -407,7 +387,6 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
-        private Button btndem;
         private Button btnmat;
         private Button button2;
         private Panel panel2;

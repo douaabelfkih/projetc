@@ -64,26 +64,34 @@ namespace projet1
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-            SELECT 
-                d.id AS ID_Demande,
-                e.nom AS Enseignant,
-                e.departement AS Departement,
-                m.Type AS TypeMateriel, -- Utilisez le type du matériel
-                d.etat AS Etat,
-                d.date_demande AS DateDemande,
-                d.date_besoin AS DateBesoin,
-                d.commentaire AS Commentaire
-            FROM DemandeMateriel d
-            JOIN Enseignant e ON d.id_enseignant = e.id
-            JOIN Materiel m ON d.type_materiel = m.Type"; 
-
-
+                            SELECT 
+                                d.id AS ID_Demande,
+                                e.nom AS Enseignant,
+                                e.departement AS Departement,
+                                m.Type AS TypeMateriel,
+                                d.etat AS Etat,
+                                d.date_demande AS DateDemande,
+                                d.date_besoin AS DateBesoin,
+                                d.commentaire AS Commentaire,
+                                d.duree_utilisation AS DureeUtilisation -- Ajout de la colonne durée d'utilisation
+                            FROM DemandeMateriel d
+                            JOIN Enseignant e ON d.id_enseignant = e.id
+                            JOIN Materiel m ON d.type_materiel = m.Type";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                 DataTable dtDemandes = new DataTable();
                 adapter.Fill(dtDemandes);
 
                 dgvDemandes.DataSource = dtDemandes;
+
+                // Personnalisation de l'affichage des colonnes
+                dgvDemandes.Columns["TypeMateriel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvDemandes.Columns["DateDemande"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dgvDemandes.Columns["DateBesoin"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dgvDemandes.Columns["DureeUtilisation"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvDemandes.Columns["Etat"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvDemandes.Columns["Commentaire"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                  // Pour la durée d'utilisation
             }
         }
 
@@ -120,7 +128,9 @@ namespace projet1
             if (dgvDemandes.SelectedRows.Count > 0)
             {
                 int idDemande = Convert.ToInt32(dgvDemandes.SelectedRows[0].Cells["ID_Demande"].Value);
-                string commentaire = txtCommentaire.Text; // Un TextBox pour le commentaire du responsable
+
+                // Demander à l'utilisateur d'entrer un commentaire
+                string commentaire = Microsoft.VisualBasic.Interaction.InputBox("Entrez un commentaire pour la demande refusée:", "Commentaire");
 
                 string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=monprojet;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -130,7 +140,8 @@ namespace projet1
                         connection
                     );
                     cmd.Parameters.AddWithValue("@idDemande", idDemande);
-                    cmd.Parameters.AddWithValue("@commentaire", commentaire);
+                    cmd.Parameters.AddWithValue("@commentaire", commentaire);  // Ajouter la valeur du commentaire
+
                     connection.Open();
                     cmd.ExecuteNonQuery();
                 }

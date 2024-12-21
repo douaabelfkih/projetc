@@ -113,6 +113,7 @@
             btnexit.TabIndex = 8;
             btnexit.Text = "    Exit";
             btnexit.UseVisualStyleBackColor = false;
+            btnexit.Click += btnexit_Click;
             // 
             // btndem
             // 
